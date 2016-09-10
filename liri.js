@@ -56,8 +56,7 @@
 
 //                    TWITTER SECTION
 
-//**********************************************************
-
+//*********************************************************
 var myTweets = require('./keys.js');
 var Twitter = require('twitter');
 
@@ -84,11 +83,15 @@ client.post('statuses/update', {status: 'Brought to you by LIRI'}, function(erro
 
 
 
+
+
+
 //**********************************************************
 
 //                    SPOTIFY SECTION
 
-//**********************************************************
+//*********************************************************
+var spotify = require('spotify');
 
 
 
@@ -98,6 +101,6 @@ client.post('statuses/update', {status: 'Brought to you by LIRI'}, function(erro
 
 //**********************************************************
 
-//                     SECTION
+//                     OMDB SECTION
 
 //**********************************************************
