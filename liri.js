@@ -49,15 +49,55 @@
 // It should run spotify-this-song for "I Want it That Way," as follows the text in random.txt.
 // Feel free to change the text in that document to test out the feature for other commands.
 
+
+
+
+//**********************************************************
+
+//                    TWITTER SECTION
+
+//**********************************************************
+
+var myTweets = require('./keys.js');
 var Twitter = require('twitter');
 
 var client = new Twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+  consumer_key: myTweets.twitterKeys.consumer_key,
+  consumer_secret: myTweets.twitterKeys.consumer_secret,
+  access_token_key: myTweets.twitterKeys.access_token_key,
+  access_token_secret: myTweets.twitterKeys.access_token_secret
 });
 
-client.get(path, params, callback);
-client.post(path, params, callback);
-client.stream(path, params, callback);
+var params = {user: "cody javagitt", count: 20};
+
+
+client.get('statuses/update', params, {status: 'I am a tweet'}, function(error, tweet, response) {
+  if (!error) {
+    console.log('Tweet is the word. Here are 20.');
+  }
+});
+
+client.post('statuses/update', {status: 'Brought to you by LIRI'}, function(error, tweet, response) {
+  if (error) throw error;
+    console.log(tweet);
+});
+
+
+
+//**********************************************************
+
+//                    SPOTIFY SECTION
+
+//**********************************************************
+
+
+
+
+
+
+
+//**********************************************************
+
+//                     SECTION
+
+//**********************************************************
