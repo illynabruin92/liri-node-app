@@ -1,58 +1,127 @@
-# Week 7 Assignment - Rock Paper Scissors
-
-##### *RPS? Again?! Whaaaat?!!*
+# Week 10 (LIRI Bot)
 
 ### Overview
-In this assignment, you'll indeed create another Rock Paper Scissors game. The catch? You're going to make this an online multiplayer game, all with the help of Firebase (and the rest of your web development repertoire)!
+In this assignment, you will make LIRI. LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a *Language* Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
 
-### Remember
+### Before You Begin
 
-* You will be fully capable of doing this homework by the end of Saturday's class.
+1. LIRI will display your latest tweets. If you don't already have an account on Twitter, make one and post a few tweets about your latest projects.
 
-### Some Notes Before you begin
+2. Make a new GitHub repository called liri-node-app and clone it to your computer.
 
-* Whether you finish the game or not, you must hand in your code by 8/17 or 8/18 to avoid having your work marked incomplete. We don't expect every student to finish this assignment. Still, we do want to see you program this game as best you can.
+3. To retrieve the data that will power this app, you'll need to send requests to the Twitter, Spotify and IMDB APIs. You'll find these Node packages crucial for your assignment.
 
-### When Should You Be an Expert with the Concepts from This Homework?
-
-By Week 9. Try your *absolute best* to finish this homework. Remember: you have two weeks to ace this exercise.
-
-### Setup
-1. Create a GitHub repo called `RPS-Multiplayer` and clone it to your computer.
-
-2. Create a file inside of your `RPS-Multiplayer` folder called `index.html`. This is where your page's HTML will go.
-  * Don't forget to include [jQuery](https://code.jquery.com/jquery-2.2.1.min.js) and [Firebase](https://cdn.firebase.com/js/client/2.4.1/firebase.js).
-
-3. Inside `RPS-Multiplayer`, create your `assets` directory.
-  * Create the folders and files you typically place in `assets` -- just like you had for the prior weeks' homework assignments.
+	* [Twitter](https://www.npmjs.com/package/twitter)
+	* [Spotify](https://www.npmjs.com/package/spotify)
+	* [Request](https://www.npmjs.com/package/request)
+		* You'll use Request to grab data from the [OMDB API](http://www.omdbapi.com).
 
 ### Instructions
+1. Make a .gitignore file and add the following lines to it.
 
-* Create a game that suits this user story:
-  * Only two users can play at the same time.
+```
+keys.js
+node_modules
+.DS_Store
+```
 
-  * Both players pick either `rock`, `paper` or `scissors`. After the players make their selection, the game will tell them whether a tie occurred or if one player defeated the other.
+	* You don't need .DS_Store in the .gitignore file if you're on a Windows Machine.
 
-  * The game will track each player's wins and losses.
+2. Make a JavaScript file named `keys.js`.
 
-  * Throw some chat functionality in there! No online multiplayer game is complete without having to endure endless taunts and insults from your jerk opponent.
+Inside keys.js your file will look like this:
 
-  * Styling and theme are completely up to you. Get Creative!
+``` JavaScript
+console.log('this is loaded');
+
+exports.twitterKeys = {
+  consumer_key: '<input here>',
+  consumer_secret: '<input here>',
+  access_token_key: '<input here>',
+  access_token_secret: '<input here>',
+}
+
+```
+3. Get your Twitter API keys by following these steps:
+
+	* Step One: Visit https://apps.twitter.com/app/new
+	* Step Two: Fill out the form with dummy data. Type `http://google.com` in the Website input. Don't fill out the Callback URL input. Then submit the form.
+	* Step Three: On the next screen, click the Keys and Access Tokens tab to get your consume key and secret. 
+		* Copy and paste them where the `<input here>` tags are inside your keys.js file.
+	* Step Four: At the bottom of the page, click the `Create my access token` button to get your access token key and secret. 
+		* Copy the access token key and secret displayed at the bottom of the next screen. Paste them where the `<input here>` tags are inside your keys.js file.
+
+4. Make a file called `random.txt`.
+
+	* Inside of `random.txt` put the following in with no extra characters or white space:
+		* spotify-this-song,"I Want it That Way"
+
+5. Make a JavaScript file named `liri.js`.
+
+6. At the top of the `liri.js` file, write the code you need to grab the data from keys.js. Then store the keys in a variable.
+
+7. Make it so liri.js can take in one of the following commands:
+
+	* `my-tweets`
+
+	* `spotify-this-song`
+
+	* `movie-this`
+
+	* `do-what-it-says`
+
+### What Each Command Should Do
+1. `node liri.js my-tweets`
+		
+	* This will show your last 20 tweets and when they were created at in your terminal/bash window.
+
+2. `node liri.js spotify-this-song '<song name here>'`
+
+	* This will show the following information about the song in your terminal/bash window
+		* Artist(s)
+		* The song's name
+		* A preview link of the song from Spotify
+		* The album that the song is from
+
+	* if no song is provided then your program will default to
+		* "The Sign" by Ace of Base
+
+3. `node liri.js movie-this '<movie name here>'`
+
+	* This will output the following information to your terminal/bash window:
+
+		* Title of the movie.
+		* Year the movie came out.
+		* IMDB Rating of the movie.
+		* Country where the movie was produced.
+		* Language of the movie.
+		* Plot of the movie.
+		* Actors in the movie.
+		* Rotten Tomatoes Rating.
+		* Rotten Tomatoes URL.
+
+	* If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
+		* If you haven't watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/
+		* It's on Netflix!
+
+4. `node liri.js do-what-it-says`
+	* Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+		* It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
+		* Feel free to change the text in that document to test out the feature for other commands.
+
+### BONUS
+
+* In addition to logging the data to your terminal/bash window, output the data to a .txt file called `log.txt`.
+
+* Make sure you append each command you run to the `log.txt` file. 
+
+* Do not overwrite your file each time you run a command.
 
 -------
+### One More Thing
+If you have any questions about this project or about the material we covered, the instructor and your TAs are only a Slack message away.
 
-### Additional Practice and Support
+**Good Luck!**
 
-* If you find your skills lacking in any of the subjects we taught you, look at your instructor's in class repository. 
-
-  * Find the exercises that you did in class and redo them from scratch. It might seem redundant at first, but this will help edify the material.
-
-  * You can also watch videos of this all of our past lectures--we've saved these to the repo.
-
-* Like always, feel free to contact either your instructor or a TA if you'd like some one-on-one support. 
- 
-  **Good Luck!**
-
-# Copyright
+## Copyright
 Coding Boot Camp (C) 2016. All Rights Reserved.
-
